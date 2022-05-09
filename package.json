@@ -4,20 +4,26 @@
   "description": "Backend application programming interface for OdinBook mock social media",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "d": "./node_modules/nodemon/bin/nodemon.js app.js"
   },
   "author": "Benedict Kioko",
   "license": "ISC",
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^2.2.2",
+    "dotenv": "^16.0.0",
+    "jest": "^28.1.0",
+    "mongodb": "^4.5.0",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
-    "nodemon": "^2.0.16",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
