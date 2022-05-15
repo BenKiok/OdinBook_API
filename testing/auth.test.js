@@ -1,32 +1,28 @@
-const authRouter = require('../routers/auth'),
-      {MongoClient} = require('mongodb'),
+const initializeMongoServer = require('./mongoTestConfig'),
+      authRouter = require('../routers/auth'),
       request = require('supertest'),
       assert = require('assert'),
       express = require('express'),
       app = express();
+require('../passport');
 
 app.use(express.urlencoded({extended: false}));
 app.use('/api', authRouter);
 
 describe('insert', () => {
-  let connection,
-      db,
-      mockData = {username: 'User1', password: 'aPassword'};
+  let mockData = {username: 'User1', password: 'aPassword'},
+      database;
 
   beforeAll(async () => {
-    connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    db = await connection.db(globalThis.__MONGO_DB_NAME__);
+    database = initializeMongoServer();
   });
 
   afterAll(async () => {
-    await connection.close();
+    await database.disconnect();
   });
 
   describe('POST /signup', () => {
-    it('returns new user and JWT', done => {
+    it('returns new user', done => {
       request(app)
       .post('/api/signup')
       .send(JSON.stringify(mockData))
@@ -38,7 +34,6 @@ describe('insert', () => {
 
         assert(data.user.username, mockData.username);
         assert(typeof data.user.password, 'string');
-        assert(typeof data.token, 'string');
         done();
       })
       .catch(err => done(err));

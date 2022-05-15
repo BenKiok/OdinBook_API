@@ -10,10 +10,9 @@
   "author": "Benedict Kioko",
   "license": "ISC",
   "devDependencies": {
-    "@shelf/jest-mongodb": "^2.2.2",
     "dotenv": "^16.0.0",
     "jest": "^28.1.0",
-    "mongodb": "^4.5.0",
+    "mongodb-memory-server": "^8.5.2",
     "nodemon": "^2.0.16",
     "supertest": "^6.2.3"
   },
