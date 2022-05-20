@@ -4,17 +4,13 @@
   "description": "Backend application programming interface for OdinBook mock social media",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
     "d": "./node_modules/nodemon/bin/nodemon.js app.js"
   },
   "author": "Benedict Kioko",
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^16.0.0",
-    "jest": "^28.1.0",
-    "mongodb-memory-server": "^8.5.2",
-    "nodemon": "^2.0.16",
-    "supertest": "^6.2.3"
+    "nodemon": "^2.0.16"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
