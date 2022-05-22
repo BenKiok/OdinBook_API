@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 const userSchema = new Schema(
   {
     username: {type: String, required: true},
-    password: {type: String, required: true},
+    password: {type: String},
     postsLiked: [
       {type: Schema.Types.ObjectId, ref: 'Post'}
     ],
@@ -13,7 +13,8 @@ const userSchema = new Schema(
     ],
     friends: [
       {type: Schema.Types.ObjectId, ref: 'User'}
-    ]
+    ],
+    facebookId: {type: String}
   }
 );
 

@@ -72,3 +72,20 @@ exports.user_login_POST = [
     }
   }
 ]
+
+exports.facebook_login_GET = (req, res, next) => {
+  passport.authenticate('facebook', {failureRedirect: '/login', failureMessage: true}, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).send('Bad request');
+    }
+
+    req.login(user, {session: false}, err => {
+      if (err) {
+        return next(err);
+      }
+      
+      const token = jwtoken.sign(user.toJSON(), 'dis_a_secret');
+      return res.json({user, token});
+    });
+  })(req, res);
+}
