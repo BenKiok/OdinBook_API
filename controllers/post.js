@@ -18,9 +18,9 @@ exports.new_post_POST = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return next(err);
+      return res.json(req.body);
     } else {
-      User.findById(req.params.id, (err, user) => {
+      User.findById(req.params.user, (err, user) => {
         if (err) {
           return next(err);
         }
@@ -53,9 +53,10 @@ exports.edit_post_PUT = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return next(err);
+      return res.json(req.body);
     } else {
       Post.findByIdAndUpdate(
+        req.params.id,
         {
           body: req.body.body,
           date: Date.now()
@@ -77,7 +78,7 @@ exports.delete_post_DELETE = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    
+
     return res.json(post);
   })
 }
