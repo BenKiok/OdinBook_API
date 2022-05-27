@@ -5,6 +5,7 @@ require('dotenv').config();
 require('./passport');
 
 const authRouter = require('./routers/auth');
+const mainRouter = require('./routers/main');
 const app = express();
 
 mongoose.connect(process.env.MONGODB, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -14,6 +15,6 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB Atlas conne
 app.use(express.json());
 app.use(passport.initialize());
 
-app.use('/api', authRouter);
+app.use('/api', authRouter, passport.authenticate('jwt', {session: false}), mainRouter);
 
 app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}...`));
