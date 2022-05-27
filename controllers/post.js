@@ -73,6 +73,42 @@ exports.edit_post_PUT = [
   }
 ]
 
+exports.like_post_PUT = (req, res, next) => {
+  Post.findById(req.params.id, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+
+    post.likes += 1;
+
+    Post.findByIdAndUpdate(post._id, {likes: post.likes}, (err, post) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json(post);
+    })
+  });
+}
+
+exports.unlike_post_PUT = (req, res, next) => {
+  Post.findById(req.params.id, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+
+    post.likes -= 1;
+
+    Post.findByIdAndUpdate(post._id, {likes: post.likes}, (err, post) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json(post);
+    })
+  });
+}
+
 exports.delete_post_DELETE = (req, res, next) => {
   Post.findByIdAndDelete(req.params.id, (err, post) => {
     if (err) {

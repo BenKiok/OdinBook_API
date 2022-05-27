@@ -5,6 +5,8 @@ const express = require('express'),
 
 router.post('/:user/new/post', post_controller.new_post_POST);
 router.put('/post/:id/edit', post_controller.edit_post_PUT);
+router.put('/post/:id/like', post_controller.like_post_PUT);
+router.put('/post/:id/unlike', post_controller.unlike_post_PUT);
 router.delete('/post/:id/delete', post_controller.delete_post_DELETE);
 router.get('/post/:id', post_controller.get_post_GET);
 
