@@ -8,7 +8,7 @@ router.put('/post/:id/edit', post_controller.edit_post_PUT);
 router.delete('/post/:id/delete', post_controller.delete_post_DELETE);
 router.get('/post/:id', post_controller.get_post_GET);
 
-router.post('/:user/new/comment', comment_controller.new_comment_POST);
+router.post('/:user/new/comment/for_post/:id', comment_controller.new_comment_POST);
 router.put('/comment/:id/edit', comment_controller.edit_comment_PUT);
 router.delete('/comment/:id/delete', comment_controller.delete_comment_DELETE);
 router.get('/comment/:id', comment_controller.get_comment_GET);

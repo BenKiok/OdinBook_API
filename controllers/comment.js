@@ -1,5 +1,6 @@
 const Comment = require('../models/Comment'),
       User = require('../models/User'),
+      Post = require('../models/Post'),
       {body, validationResult} = require('express-validator');
 
 exports.get_comment_GET = (req, res, next) => {
@@ -38,7 +39,21 @@ exports.new_comment_POST = [
             return next(err);
           }
 
-          return res.json(comment);
+          Post.findById(req.params.id, (err, post) => {
+            if (err) {
+              return next(err);
+            }
+
+            post.comments.unshift(comment);
+
+            Post.findByIdAndUpdate(post._id, {comments: post.comments}, (err, post) => {
+              if (err) {
+                return next(err);
+              }
+
+              return res.json(comment);
+            });
+          });
         })
       })
     }
