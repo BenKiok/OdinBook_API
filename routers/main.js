@@ -10,7 +10,7 @@ router.get('/post/:id', post_controller.get_post_GET);
 
 router.post('/:user/new/comment/for_post/:id', comment_controller.new_comment_POST);
 router.put('/comment/:id/edit', comment_controller.edit_comment_PUT);
-router.delete('/comment/:id/delete', comment_controller.delete_comment_DELETE);
+router.delete('/comment/:id/delete/from_post/:post', comment_controller.delete_comment_DELETE);
 router.get('/comment/:id', comment_controller.get_comment_GET);
 
 module.exports = router;

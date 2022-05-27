@@ -92,6 +92,20 @@ exports.delete_comment_DELETE = (req, res, next) => {
       return next(err);
     }
 
-    return res.json(comment);
-  })
+    Post.findById(req.params.post, (err, post) => {
+      if (err) {
+        return next(err);
+      }
+
+      let commentsArr = post.comments.filter(id => String(id) !== String(comment._id));
+
+      Post.findByIdAndUpdate(post._id, {comments: commentsArr}, (err, post) => {
+        if (err) {
+          return next(err);
+        }
+
+        return res.json(comment);
+      })
+    });
+  });
 }
