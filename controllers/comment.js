@@ -30,7 +30,8 @@ exports.new_comment_POST = [
           {
             body: req.body.body,
             date: Date.now(),
-            user
+            user,
+            likes: 0
           }
         )
 
@@ -106,6 +107,42 @@ exports.delete_comment_DELETE = (req, res, next) => {
 
         return res.json(comment);
       })
+    });
+  });
+}
+
+exports.like_comment_PUT = (req, res, next) => {
+  Comment.findById(req.params.id, (err, comment) => {
+    if (err) {
+      return next(err);
+    }
+
+    comment.likes += 1;
+
+    Comment.findByIdAndUpdate(comment._id, {likes: comment.likes}, (err, comment) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json(comment);
+    });
+  });
+}
+
+exports.unlike_comment_PUT = (req, res, next) => {
+  Comment.findById(req.params.id, (err, comment) => {
+    if (err) {
+      return next(err);
+    }
+
+    comment.likes -= 1;
+
+    Comment.findByIdAndUpdate(comment._id, {likes: comment.likes}, (err, comment) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json(comment);
     });
   });
 }
