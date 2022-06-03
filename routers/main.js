@@ -10,6 +10,7 @@ router.put('/:user/new/friendrequestto/:id', user_controller.new_friendrequest_P
 router.put('/:user/new/friend/:id', user_controller.new_friend_PUT);
 router.put('/:user/remove/friendrequestfrom/:id', user_controller.remove_friendrequest_PUT);
 router.put('/:user/remove/friend/:id', user_controller.remove_friend_PUT);
+router.get('/:user/timeline', post_controller.timeline_GET);
 
 router.put('/post/:id/edit', post_controller.edit_post_PUT);
 router.put('/post/:id/like', post_controller.like_post_PUT);

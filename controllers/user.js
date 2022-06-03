@@ -1,4 +1,3 @@
-const { use } = require('passport/lib');
 const User = require('../models/User');
 
 exports.new_friendrequest_PUT = (req, res, next) => {

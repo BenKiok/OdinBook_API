@@ -9,7 +9,7 @@ exports.get_post_GET = (req, res, next) => {
     }
 
     return res.json(post);
-  })
+  });
 }
 
 exports.new_post_POST = [
@@ -41,8 +41,8 @@ exports.new_post_POST = [
           }
 
           return res.json(post);
-        })
-      })
+        });
+      });
     }
   }
 ]
@@ -68,7 +68,7 @@ exports.edit_post_PUT = [
 
           return res.json(post);
         }
-      )
+      );
     }
   }
 ]
@@ -87,7 +87,7 @@ exports.like_post_PUT = (req, res, next) => {
       }
 
       return res.json(post);
-    })
+    });
   });
 }
 
@@ -105,7 +105,7 @@ exports.unlike_post_PUT = (req, res, next) => {
       }
 
       return res.json(post);
-    })
+    });
   });
 }
 
@@ -116,5 +116,29 @@ exports.delete_post_DELETE = (req, res, next) => {
     }
 
     return res.json(post);
-  })
+  });
+}
+
+exports.timeline_GET = (req, res, next) => {
+  return (async () => {
+    const user = await User.findById(req.params.user).exec();
+    let timeline = [], arr;
+
+    // collect posts from user
+    arr = await Post.find({user}).populate('comments').exec();
+    timeline.push(...arr);
+
+    // collect posts from each friend of user
+    const friends = user.friends;
+    for (const i in user.friends) {
+      arr = await Post.find({user: friends[i]}).populate('comments').exec();
+      timeline.push(...arr);
+    }
+
+    // organize by date newest to oldest
+    timeline = timeline.sort((a, b) => b.date - a.date);
+
+    // return array of posts
+    return res.json(timeline);
+  })();
 }
