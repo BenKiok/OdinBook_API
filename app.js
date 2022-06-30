@@ -1,6 +1,7 @@
 const express = require('express'),
       mongoose = require('mongoose'),
-      passport = require('passport');
+      passport = require('passport'),
+      cors = require('cors');
 require('dotenv').config();
 require('./passport');
 
@@ -12,6 +13,7 @@ mongoose.connect(process.env.MONGODB, { useUnifiedTopology: true, useNewUrlParse
 mongoose.connection.on('connected', console.log.bind(console, 'Database connected!'));
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB Atlas connection error'));
 
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
