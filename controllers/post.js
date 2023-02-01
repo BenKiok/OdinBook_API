@@ -79,6 +79,12 @@ exports.like_post_PUT = (req, res, next) => {
       return next(err);
     }
 
+    for (let i = 0; i < post.likedBy.length; i++) {
+      if (post.likedBy[i] == req.params.user) {
+        return res.json(post);
+      }
+    }
+    
     post.likedBy.push(req.params.user);
 
     Post.findByIdAndUpdate(post._id, {likedBy: post.likedBy}, (err, post) => {
