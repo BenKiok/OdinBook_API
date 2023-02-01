@@ -103,13 +103,18 @@ exports.unlike_post_PUT = (req, res, next) => {
       return next(err);
     }
 
-    post.likes -= 1;
+    for (let i = 0; i < post.likedBy.length; i++) {
+      if (post.likedBy[i] == req.params.user) {
+        post.likedBy.splice(i, 1);
+        break;
+      }
+    }
 
-    Post.findByIdAndUpdate(post._id, {likes: post.likes}, (err, post) => {
+    Post.findByIdAndUpdate(post._id, {likedBy: post.likedBy}, (err, post) => {
       if (err) {
         return next(err);
       }
-
+      
       return res.json(post);
     });
   });
