@@ -117,9 +117,15 @@ exports.like_comment_PUT = (req, res, next) => {
       return next(err);
     }
 
-    comment.likes += 1;
+    for (let i = 0; i < comment.likedBy.length; i++) {
+      if (comment.likedBy[i] == req.params.user) {
+        return res.json(comment);
+      }
+    }
 
-    Comment.findByIdAndUpdate(comment._id, {likes: comment.likes}, (err, comment) => {
+    comment.likedBy.push(req.params.user);
+
+    Comment.findByIdAndUpdate(comment._id, {likedBy: comment.likedBy}, (err, comment) => {
       if (err) {
         return next(err);
       }
