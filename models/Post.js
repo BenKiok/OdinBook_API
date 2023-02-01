@@ -8,7 +8,9 @@ const postSchema = new Schema(
     comments: [
       {type: Schema.Types.ObjectId, ref: 'Comment'}
     ],
-    likes: {type: Number, required: true},
+    likedBy: [
+      {type: Schema.Types.ObjectId, ref: 'User'}
+    ],
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true}
   }
 );
