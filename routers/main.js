@@ -13,7 +13,7 @@ router.put('/:user/remove/friend/:id', user_controller.remove_friend_PUT);
 router.get('/:user/timeline', post_controller.timeline_GET);
 
 router.put('/post/:id/edit', post_controller.edit_post_PUT);
-router.put('/post/:id/like', post_controller.like_post_PUT);
+router.put('/post/:id/likefrom/:user', post_controller.like_post_PUT);
 router.put('/post/:id/unlike', post_controller.unlike_post_PUT);
 router.delete('/post/:id/delete', post_controller.delete_post_DELETE);
 router.get('/post/:id', post_controller.get_post_GET);

@@ -79,15 +79,21 @@ exports.like_post_PUT = (req, res, next) => {
       return next(err);
     }
 
-    post.likes += 1;
-
-    Post.findByIdAndUpdate(post._id, {likes: post.likes}, (err, post) => {
+    User.findById(req.params.user, (err, user) => {
       if (err) {
         return next(err);
       }
 
-      return res.json(post);
-    });
+      post.likedBy.push(user);
+
+      Post.findByIdAndUpdate(post._id, {likedBy: post.likedBy}, (err, post) => {
+        if (err) {
+          return next(err);
+        }
+        
+        return res.json(post);
+      });
+    }); 
   });
 }
 
