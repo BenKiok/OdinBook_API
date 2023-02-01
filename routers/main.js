@@ -21,7 +21,7 @@ router.get('/post/:id', post_controller.get_post_GET);
 router.put('/comment/:id/edit', comment_controller.edit_comment_PUT);
 router.delete('/comment/:id/deletefrom/:post', comment_controller.delete_comment_DELETE);
 router.put('/comment/:id/likefrom/:user', comment_controller.like_comment_PUT);
-router.put('/comment/:id/unlike', comment_controller.unlike_comment_PUT);
+router.put('/comment/:id/unlikefrom/:user', comment_controller.unlike_comment_PUT);
 router.get('/comment/:id', comment_controller.get_comment_GET);
 
 module.exports = router;
