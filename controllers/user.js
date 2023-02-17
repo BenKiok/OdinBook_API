@@ -100,3 +100,13 @@ exports.remove_friend_PUT = (req, res, next) => {
     });
   });
 }
+
+exports.get_user_GET = (req, res, next) => {
+  User.findById(req.params.user, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+
+    return res.json(user);
+  });
+}
