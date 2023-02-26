@@ -136,13 +136,13 @@ exports.timeline_GET = (req, res, next) => {
     let timeline = [], arr;
 
     // collect posts from user
-    arr = await Post.find({user}).populate('comments').exec();
+    arr = await Post.find({user}).populate('comments').populate('user').exec();
     timeline.push(...arr);
 
     // collect posts from each friend of user
     const friends = user.friends;
     for (const i in user.friends) {
-      arr = await Post.find({user: friends[i]}).populate('comments').exec();
+      arr = await Post.find({user: friends[i]}).populate('comments').populate('user').exec();
       timeline.push(...arr);
     }
 
