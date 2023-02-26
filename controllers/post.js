@@ -3,13 +3,9 @@ const Post = require('../models/Post'),
       {body, validationResult} = require('express-validator');
 
 exports.get_post_GET = (req, res, next) => {
-  Post.findById(req.params.id, (err, post) => {
-    if (err) {
-      return next(err);
-    }
-
-    return res.json(post);
-  });
+  return (async () => {
+    return await Post.findById(req.params.id).populate('comments').populate('user').exec();
+  })();
 }
 
 exports.new_post_POST = [
